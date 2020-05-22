@@ -124,6 +124,10 @@ resource "aws_eks_node_group" "default" {
     min_size     = var.min_size
   }
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   dynamic "remote_access" {
     for_each = var.ec2_ssh_key != null && var.ec2_ssh_key != "" ? ["true"] : []
     content {
